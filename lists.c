@@ -4,7 +4,7 @@
  * add_node - Adds a node To the Start of the List
  * @head: Address of Pointer to Head
  * @str: Str Field of Node
- * @num: Node Index
+ * @N: Node Index
  * Return: Size of List
  */
 list_t *add_node(list_t **head, const char *str, int N)
@@ -36,7 +36,7 @@ list_t *add_node(list_t **head, const char *str, int N)
  * add_node_end - Adds a Node to the End of the List
  * @head: Address of Pointer to Head
  * @str: Str field of node
- * @num: Node Index
+ * @N: Node Index
  * Return: Size of List
  */
 list_t *add_node_end(list_t **head, const char *str, int N)
