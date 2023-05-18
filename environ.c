@@ -2,29 +2,29 @@
 
 /**
  * _myenv - prints the current environment
- * @info: Structure containing potential arguments.
+ * @m: Structure containing potential arguments.
  * Return:0
  */
-int _myenv(info_t *info)
+int _myenv(info_t *m)
 {
-	print_list_str(info->env);
+	print_list_str(m->env);
 	return (0);
 }
 
 /**
  * _getenv - gets the value of an environ variable
- * @info: Structure containing potential arguments.
- * @name: env var name
+ * @m: Structure containing potential arguments.
+ * @n: env var name
  * Return: the value
  */
-char *_getenv(info_t *info, const char *name)
+char *_getenv(info_t *m, const char *n)
 {
-	list_t *list = info->env;
+	list_t *list = m->env;
 	char *ptr;
 
 	while (list)
 	{
-		ptr = starts_with(list->str, name);
+		ptr = starts_with(list->str, n);
 		if (ptr && *ptr)
 			return (ptr);
 		list = list->next;
@@ -34,39 +34,39 @@ char *_getenv(info_t *info, const char *name)
 
 /**
  * _mysetenv - Initialize a new environment variable.
- * @info: Structure containing potential arguments.
+ * @m: Structure containing potential arguments.
  *  Return:0
  */
-int _mysetenv(info_t *info)
+int _mysetenv(info_t *m)
 {
-	if (info->argc != 3)
+	if (m->argc != 3)
 	{
 		_eputs("Incorrect number of arguements\n");
 		return (1);
 	}
-	if (_setenv(info, info->argv[1], info->argv[2]))
+	if (_setenv(m, m->argv[1], m->argv[2]))
 		return (0);
 	return (1);
 }
 
 /**
  * _myunsetenv - Remove an environment variable
- * @info: Structure containing potential arguments.
+ * @m: Structure containing potential arguments.
  *  Return:0
  */
-int _myunsetenv(info_t *info)
+int _myunsetenv(info_t *m)
 {
 	int a;
 
-	if (info->argc == 1)
+	if (m->argc == 1)
 	{
 		_eputs("Too few arguements.\n");
 		return (1);
 	}
 	a = 1;
-       while (a <= info->argc)
+       while (a <= m->argc)
        {
-		_unsetenv(info, info->argv[a]);
+		_unsetenv(m, m->argv[a]);
 		a++;
        }
 
@@ -75,20 +75,17 @@ int _myunsetenv(info_t *info)
 
 /**
  * populate_env_list - populates env linked list
- * @info: Structure containing potential arguments.
+ * @m: Structure containing potential arguments.
  * Return: 0
  */
-int populate_env_list(info_t *info)
+int populate_env_list(info_t *m)
 {
 	list_t *list = NULL;
 	size_t a;
+	char **envirn = NULL;
 
-	a = 0;
-       while (environ[a])
-       {
-		add_node_end(&list, environ[a], 0);
-		a++;
-       }
-	info->env = list;
+	for (a = 0; envirn[a]; a++)
+		add_node_end(&list, envirn[a], 0);
+	m->env = list;
 	return (0);
 }

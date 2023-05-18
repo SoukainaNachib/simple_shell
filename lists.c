@@ -7,7 +7,7 @@
  * @N: Node Index
  * Return: Size of List
  */
-list_t *add_node(list_t **head, const char *str, int N)
+list_t *add_node(list_t **head, char *str, int N)
 {
 	list_t *new_head;
 
@@ -39,7 +39,7 @@ list_t *add_node(list_t **head, const char *str, int N)
  * @N: Node Index
  * Return: Size of List
  */
-list_t *add_node_end(list_t **head, const char *str, int N)
+list_t *add_node_end(list_t **head, char *str, int N)
 {
 	list_t *new_node, *node;
 
