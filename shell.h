@@ -98,10 +98,11 @@ typedef struct passinfo
  *@type: The builtin command flag
  *@function: The function
  */
+
 typedef struct builtin
 {
 	char *type;
-	int (*function)(info_t *);
+	int (*func)(info_t *);
 } builtin_table;
 
 
@@ -216,5 +217,11 @@ int replace_vars(info_t *);
 int replace_string(char **, char *);
 void check_chain(info_t *, char *, size_t *, size_t, size_t);
 int is_chain(info_t *, char *, size_t *);
+
+/* Toem_atoi.c */
+int _isalpha(int);
+int interactive(info_t *);
+int is_delim(char, char *);
+int _atoi(char *);
 
 #endif
