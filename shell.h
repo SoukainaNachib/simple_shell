@@ -205,11 +205,11 @@ list_t *node_starts_with(list_t *, char *, char);
 ssize_t get_node_index(list_t *, list_t *);
 
 /*Toem_history.c */
-int write_history(info_t *info);
-char *get_history_file(info_t *info);
-int read_history(info_t *info);
-int renumber_history(info_t *info);
-int build_history_list(info_t *info, char *buf, int linecount);
+int write_history(info_t *);
+char *get_history_file(info_t *);
+int read_history(info_t *);
+int renumber_history(info_t *);
+int build_history_list(info_t *, char *, int);
 
 /*Toem_vars.c */
 int replace_alias(info_t *);
@@ -223,5 +223,8 @@ int _isalpha(int);
 int interactive(info_t *);
 int is_delim(char, char *);
 int _atoi(char *);
+
+/* Toem_memory.c */
+int bfree(void **);
 
 #endif
