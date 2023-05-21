@@ -2,8 +2,8 @@
 
 /**
  * main - Entry Point
- * @c: Argument Count
- * @v: Argument Vector
+ * @c: Arg Count
+ * @v: Arg Vector
  *
  * Return: 0 on Success, 1 on Error
  *
