@@ -3,7 +3,7 @@
 /**
  * input_buf - Buffers Chained Commands
  * @m: Parameter struct
- * @m: Address of buffer
+ * @n: Address of buffer
  * @l: Address of len var
  * Return:Number of  bytes read
  */
@@ -77,7 +77,7 @@ ssize_t get_input(info_t *m)
 			m->cmd_buf_type = CMD_NORM;
 		}
 
-		*buf = k; 
+		*buf = k;
 		return (_strlen(k));
 	}
 

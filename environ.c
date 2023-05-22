@@ -64,11 +64,11 @@ int _myunsetenv(info_t *m)
 		return (1);
 	}
 	a = 1;
-       while (a <= m->argc)
-       {
+	while (a <= m->argc)
+	{
 		_unsetenv(m, m->argv[a]);
 		a++;
-       }
+	}
 
 	return (0);
 }

@@ -55,7 +55,7 @@ char **list_to_strings(list_t *lst)
 
 /**
  * print_list - Prints All Elements of Linked list
- * @N: Pointer to First Node
+ * @p: Pointer to First Node
  * Return: Size of List
  */
 size_t print_list(const list_t *p)
