@@ -3,7 +3,7 @@
 /**
  * **strtow - Splits a Str into Words. Repeat Delimiters Are Ignored
  * @str: The input Str
- * @dlm: The Delimeter Str
+ * @d: The Delimeter Str
  * Return: a Pointer to an [] of Str, or NULL on Failure
  */
 
