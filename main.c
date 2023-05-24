@@ -1,46 +1,35 @@
 #include "shell.h"
 
 /**
- * main - Entry Point
- * @c: Arg Count
- * @v: Arg Vector
+ * main - Entry point
+ * @arc: num of arg
+ * @arv: array of arg
  *
- * Return: 0 on Success, 1 on Error
- *
+ * Return: 0 or 1
  */
 
-int main(int c, char **v)
+int main(int arc, char *arv[])
 {
-	info_t info[] = { INFO_INIT };
-	int fd = 2;
+	int is_pipline = 1;
 
-	asm ("mov %1, %0\n\t"
-		"add $3, %0"
-		: "=r" (fd)
-		: "r" (fd));
+	if (arc > 1)
+		run_from_file(arv);
 
-	if (c == 2)
+	while (true)
 	{
-		fd = open(v[1], O_RDONLY);
-		if (fd == -1)
+		if (isatty(STDIN_FILENO))
 		{
-			if (errno == EACCES)
-				exit(126);
-			if (errno == ENOENT)
-			{
-				_eputs(v[0]);
-				_eputs(": 0: Can't open ");
-				_eputs(v[1]);
-				_eputchar('\n');
-				_eputchar(BUF_FLUSH);
-				exit(127);
-			}
-			return (EXIT_FAILURE);
+			write(STDOUT_FILENO, PROMPT, 2);
+			run_interactive(arv[0]);
+			is_pipline = 0;
 		}
-		info->readfd = fd;
+
+		if (is_pipline)
+		{
+			run_non_interactive(arv);
+			break;
+		}
 	}
-	populate_env_list(info);
-	read_history(info);
-	hsh(info, v);
-	return (EXIT_SUCCESS);
+
+	return (0);
 }
