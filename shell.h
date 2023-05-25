@@ -132,12 +132,12 @@ int first_char(char *input, int *i);
 void print_syntax_error(data_shell *datash, char *input, int i, int bool);
 int check_syntax_error(data_shell *datash, char *input);
 
-/* shell_loop.c */
+/* simple_shell_loop.c*/
 char *without_comment(char *in);
 void shell_loop(data_shell *datash);
 
-/* read_line.c */
-char *read_line(int *i_eof);
+/* line.c */
+char *read_line(int *k_eof);
 
 /* split.c */
 char *swap_char(char *input, int bool);
@@ -152,7 +152,7 @@ int check_vars(r_var **h, char *in, char *st, data_shell *data);
 char *replaced_input(r_var **head, char *input, char *new_input, int nlen);
 char *rep_var(char *input, data_shell *datash);
 
-/* get_line.c */
+/* getline_.c */
 void bring_line(char **lineptr, size_t *n, char *buffer, size_t j);
 ssize_t get_line(char **lineptr, size_t *n, FILE *stream);
 
@@ -164,14 +164,14 @@ int check_error_cmd(char *dir, data_shell *datash);
 int cmd_exec(data_shell *datash);
 
 
-/* exec_line */
+/* execute_l.c */
 int exec_line(data_shell *datash);
 
-/* env1.c */
+/* environ_1.c */
 char *_getenv(const char *name, char **_environ);
 int _env(data_shell *datash);
 
-/* env2.c */
+/* environ_2.c */
 char *copy_info(char *name, char *value);
 void set_env(char *name, char *value, data_shell *datash);
 int _setenv(data_shell *datash);
@@ -186,10 +186,10 @@ void cd_to_home(data_shell *datash);
 /* cd_shell.c */
 int cd_shell(data_shell *datash);
 
-/* get_builtin */
+/* builtin.c */
 int (*get_builtin(char *cmd))(data_shell *datash);
 
-/* _exit.c */
+/* exit.c */
 int exit_shell(data_shell *datash);
 
 /* aux_stdlib.c */
@@ -211,10 +211,10 @@ char *error_permission(char **args);
 char *error_path_126(data_shell *datash);
 
 
-/* get_error.c */
+/* error.c */
 int get_error(data_shell *datash, int eval);
 
-/* get_sigint.c */
+/* sigint.c */
 void get_sigint(int sig);
 
 /* aux_help.c */
@@ -229,7 +229,7 @@ void aux_help(void);
 void aux_help_alias(void);
 void aux_help_cd(void);
 
-/* get_help.c */
+/* help.c */
 int get_help(data_shell *datash);
 
 #endif
