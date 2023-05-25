@@ -1,5 +1,5 @@
-#ifndef  _SHELL_H_
-#define  _SHELL_H_
+#ifndef _SHELL_H_
+#define _SHELL_H_
 
 #include <sys/wait.h>
 #include <sys/stat.h>
@@ -89,7 +89,7 @@ typedef struct r_var_list
 typedef struct builtin_s
 {
 	char *name;
-	int (*f)(data_shell *dash);
+	int (*f)(data_shell *datash);
 } builtin_t;
 
 /* aux_lists2.c */
