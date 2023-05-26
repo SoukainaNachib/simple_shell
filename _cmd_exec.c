@@ -3,7 +3,7 @@
 /**
  * is_cdir - Checks ":" if is in the current directory.
  * @path: Type char pointer char.
- * @i: Type int pointer of index.
+ * @K: Type int pointer of index.
  * Return: 1
  */
 int is_cdir(char *path, int *K)

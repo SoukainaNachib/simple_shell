@@ -3,15 +3,15 @@
 /**
  * repeated_char - counts the repetitions of a char
  * @input: input string
- * @k: index
+ * @i: index
  * Return: repetitions
  */
-int repeated_char(char *input, int k)
+int repeated_char(char *input, int i)
 {
 	if (*(input - 1) == *input)
-		return (repeated_char(input - 1, k + 1));
+		return (repeated_char(input - 1, i + 1));
 
-	return (k);
+	return (i);
 }
 
 /**
@@ -21,7 +21,7 @@ int repeated_char(char *input, int k)
  * @last: last char read
  * Return: index of error.
  */
-int error_sep_op(char *input, int k, char last)
+int error_sep_op(char *input, int i, char last)
 {
 	int count;
 
@@ -30,56 +30,56 @@ int error_sep_op(char *input, int k, char last)
 		return (0);
 
 	if (*input == ' ' || *input == '\t')
-		return (error_sep_op(input + 1, k + 1, last));
+		return (error_sep_op(input + 1, i + 1, last));
 
 	if (*input == ';')
 		if (last == '|' || last == '&' || last == ';')
-			return (k);
+			return (i);
 
 	if (*input == '|')
 	{
 		if (last == ';' || last == '&')
-			return (k);
+			return (i);
 
 		if (last == '|')
 		{
 			count = repeated_char(input, 0);
 			if (count == 0 || count > 1)
-				return (k);
+				return (i);
 		}
 	}
 
 	if (*input == '&')
 	{
 		if (last == ';' || last == '|')
-			return (k);
+			return (i);
 
 		if (last == '&')
 		{
 			count = repeated_char(input, 0);
 			if (count == 0 || count > 1)
-				return (k);
+				return (i);
 		}
 	}
 
-	return (error_sep_op(input + 1, k + 1, *input));
+	return (error_sep_op(input + 1, i + 1, *input));
 }
 
 /**
  * first_char - finds index of the first char
  * @input: input string
  * @i: index
- * Return: 1 
+ * Return: 1
  */
-int first_char(char *input, int *k)
+int first_char(char *input, int *i)
 {
 
-	for (*k = 0; input[*k]; *k += 1)
+	for (*i = 0; input[*i]; *i += 1)
 	{
-		if (input[*k] == ' ' || input[*k] == '\t')
+		if (input[*i] == ' ' || input[*i] == '\t')
 			continue;
 
-		if (input[*k] == ';' || input[*k] == '|' || input[*k] == '&')
+		if (input[*i] == ';' || input[*i] == '|' || input[*i] == '&')
 			return (-1);
 
 		break;
@@ -94,7 +94,7 @@ int first_char(char *input, int *k)
  * @input: input string
  * @i: index of the error
  * @bool: to control msg error
- * Return: nothing
+ * Return: no return
  */
 void print_syntax_error(data_shell *datash, char *input, int i, int bool)
 {
@@ -151,7 +151,7 @@ int check_syntax_error(data_shell *datash, char *input)
 {
 	int begin = 0;
 	int f_char = 0;
-	int k = 0;
+	int i = 0;
 
 	f_char = first_char(input, &begin);
 	if (f_char == -1)
@@ -160,10 +160,10 @@ int check_syntax_error(data_shell *datash, char *input)
 		return (1);
 	}
 
-	k = error_sep_op(input + begin, 0, *(input + begin));
-	if (k != 0)
+	i = error_sep_op(input + begin, 0, *(input + begin));
+	if (i != 0)
 	{
-		print_syntax_error(datash, input, begin + k, 1);
+		print_syntax_error(datash, input, begin + i, 1);
 		return (1);
 	}
 
