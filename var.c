@@ -3,131 +3,131 @@
 /**
  * check_env - checks if the typed variable is an env variable
  *
- * @h: head of linked list
- * @in: input string
- * @data: data structure
- * Return: no return
+ * @h: Head OF linked List
+ * @in: Input Str
+ * @data: data Structure
+ * Return: NO Return
  */
 void check_env(r_var **h, char *in, data_shell *data)
 {
-	int row, chr, j, lval;
+	int row, chr, k, lval;
 	char **_envr;
 
 	_envr = data->_environ;
 	for (row = 0; _envr[row]; row++)
 	{
-		for (j = 1, chr = 0; _envr[row][chr]; chr++)
+		for (k = 1, chr = 0; _envr[row][chr]; chr++)
 		{
 			if (_envr[row][chr] == '=')
 			{
 				lval = _strlen(_envr[row] + chr + 1);
-				add_rvar_node(h, j, _envr[row] + chr + 1, lval);
+				add_rvar_node(h, k, _envr[row] + chr + 1, lval);
 				return;
 			}
 
-			if (in[j] == _envr[row][chr])
-				j++;
+			if (in[k] == _envr[row][chr])
+				k++;
 			else
 				break;
 		}
 	}
 
-	for (j = 0; in[j]; j++)
+	for (k = 0; in[k]; k++)
 	{
-		if (in[j] == ' ' || in[j] == '\t' || in[j] == ';' || in[j] == '\n')
+		if (in[k] == ' ' || in[k] == '\t' || in[k] == ';' || in[k] == '\n')
 			break;
 	}
 
-	add_rvar_node(h, j, NULL, 0);
+	add_rvar_node(h, k, NULL, 0);
 }
 
 /**
- * check_vars - check if the typed variable is $$ or $?
+ * check_vars - Check The typed Var if  is $$ or $?
  *
- * @h: head of the linked list
- * @in: input string
- * @st: last status of the Shell
- * @data: data structure
- * Return: no return
+ * @h: Head of The Linked List
+ * @in: Input str
+ * @st: Last Status of Shell
+ * @data: Data Struc
+ * Return: NO Return
  */
 int check_vars(r_var **h, char *in, char *st, data_shell *data)
 {
-	int i, lst, lpd;
+	int k, lst, lpd;
 
 	lst = _strlen(st);
 	lpd = _strlen(data->pid);
 
-	for (i = 0; in[i]; i++)
+	for (k = 0; in[k]; k++)
 	{
-		if (in[i] == '$')
+		if (in[k] == '$')
 		{
-			if (in[i + 1] == '?')
-				add_rvar_node(h, 2, st, lst), i++;
-			else if (in[i + 1] == '$')
-				add_rvar_node(h, 2, data->pid, lpd), i++;
-			else if (in[i + 1] == '\n')
+			if (in[k + 1] == '?')
+				add_rvar_node(h, 2, st, lst), k++;
+			else if (in[k + 1] == '$')
+				add_rvar_node(h, 2, data->pid, lpd), k++;
+			else if (in[k + 1] == '\n')
 				add_rvar_node(h, 0, NULL, 0);
-			else if (in[i + 1] == '\0')
+			else if (in[k + 1] == '\0')
 				add_rvar_node(h, 0, NULL, 0);
-			else if (in[i + 1] == ' ')
+			else if (in[k + 1] == ' ')
 				add_rvar_node(h, 0, NULL, 0);
-			else if (in[i + 1] == '\t')
+			else if (in[k + 1] == '\t')
 				add_rvar_node(h, 0, NULL, 0);
-			else if (in[i + 1] == ';')
+			else if (in[k + 1] == ';')
 				add_rvar_node(h, 0, NULL, 0);
 			else
-				check_env(h, in + i, data);
+				check_env(h, in + k, data);
 		}
 	}
 
-	return (i);
+	return (k);
 }
 
 /**
- * replaced_input - replaces string into variables
+ * replaced_input - Replaces Str Into Var
  *
- * @head: head of the linked list
- * @input: input string
- * @new_input: new input string (replaced)
+ * @head: Head Of The Linked List
+ * @input: Input Str
+ * @new_input: New input sSr (replaced)
  * @nlen: new length
- * Return: replaced string
+ * Return: replaced str
  */
 char *replaced_input(r_var **head, char *input, char *new_input, int nlen)
 {
 	r_var *indx;
-	int i, j, k;
+	int m, j, k;
 
 	indx = *head;
-	for (j = i = 0; i < nlen; i++)
+	for (j = m = 0; m < nlen; m++)
 	{
 		if (input[j] == '$')
 		{
 			if (!(indx->len_var) && !(indx->len_val))
 			{
-				new_input[i] = input[j];
+				new_input[m] = input[j];
 				j++;
 			}
 			else if (indx->len_var && !(indx->len_val))
 			{
 				for (k = 0; k < indx->len_var; k++)
 					j++;
-				i--;
+				m--;
 			}
 			else
 			{
 				for (k = 0; k < indx->len_val; k++)
 				{
-					new_input[i] = indx->val[k];
-					i++;
+					new_input[m] = indx->val[k];
+					m++;
 				}
 				j += (indx->len_var);
-				i--;
+				m--;
 			}
 			indx = indx->next;
 		}
 		else
 		{
-			new_input[i] = input[j];
+			new_input[m] = input[j];
 			j++;
 		}
 	}
@@ -136,11 +136,11 @@ char *replaced_input(r_var **head, char *input, char *new_input, int nlen)
 }
 
 /**
- * rep_var - calls functions to replace string into vars
+ * rep_var - calls Functions to Replace str into vars
  *
- * @input: input string
- * @datash: data structure
- * Return: replaced string
+ * @input: Input Str
+ * @datash: Data Struc
+ * Return: Replaced Str
  */
 char *rep_var(char *input, data_shell *datash)
 {

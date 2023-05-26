@@ -1,42 +1,42 @@
 #include "shell.h"
 /**
- * swap_char - swaps | and & for non-printed chars
+ * swap_char - Swaps | And & For Non-Printed Chars
  *
- * @input: input string
- * @bool: type of swap
- * Return: swapped string
+ * @input: Input Str
+ * @bool: Type of swap
+ * Return: Swapped Str
  */
 char *swap_char(char *input, int bool)
 {
-	int i;
+	int k;
 
 	if (bool == 0)
 	{
-		for (i = 0; input[i]; i++)
+		for (k = 0; input[k]; k++)
 		{
-			if (input[i] == '|')
+			if (input[k] == '|')
 			{
-				if (input[i + 1] != '|')
-					input[i] = 16;
+				if (input[k + 1] != '|')
+					input[k] = 16;
 				else
-					i++;
+					k++;
 			}
 
-			if (input[i] == '&')
+			if (input[k] == '&')
 			{
-				if (input[i + 1] != '&')
-					input[i] = 12;
+				if (input[k + 1] != '&')
+					input[k] = 12;
 else
-					i++;
+					k++;
 			}
 		}
 	}
 	else
 	{
-		for (i = 0; input[i]; i++)
+		for (k = 0; input[k]; k++)
 		{
-			input[i] = (input[i] == 16 ? '|' : input[i]);
-			input[i] = (input[i] == 12 ? '&' : input[i]);
+			input[k] = (input[k] == 16 ? '|' : input[k]);
+			input[k] = (input[k] == 12 ? '&' : input[k]);
 		}
 	}
 	return (input);
@@ -45,27 +45,27 @@ else
 /**
  * add_nodes - add separators and command lines in the lists
  *
- * @head_s: head of separator list
- * @head_l: head of command lines list
- * @input: input string
- * Return: no return
+ * @head_s: Head of Separator list
+ * @head_l: Head of command lines list
+ * @input: Input string
+ * Return: NN return
  */
 void add_nodes(sep_list **head_s, line_list **head_l, char *input)
 {
-	int i;
+	int k;
 	char *line;
 
 	input = swap_char(input, 0);
 
-	for (i = 0; input[i]; i++)
+	for (k = 0; input[k]; k++)
 	{
-		if (input[i] == ';')
-			add_sep_node_end(head_s, input[i]);
+		if (input[k] == ';')
+			add_sep_node_end(head_s, input[k]);
 
-		if (input[i] == '|' || input[i] == '&')
+		if (input[k] == '|' || input[k] == '&')
 		{
-			add_sep_node_end(head_s, input[i]);
-			i++;
+			add_sep_node_end(head_s, input[k]);
+			k++;
 		}
 	}
 
@@ -83,8 +83,8 @@ void add_nodes(sep_list **head_s, line_list **head_l, char *input)
  *
  * @list_s: separator list
  * @list_l: command line list
- * @datash: data structure
- * Return: no return
+ * @datash: Data Struc
+ * Return: NO RETURN
  */
 void go_next(sep_list **list_s, line_list **list_l, data_shell *datash)
 {
